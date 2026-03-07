@@ -1,9 +1,14 @@
+// card length
+const issuLength = document.getElementById("issu-length");
+
 
 const fetchData = async()=> {
     try{
         const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
         const data = await res.json();
         displayData(data.data)
+        const allCardLength = data.data.length;
+        issuLength.innerHTML = `${allCardLength} Issues`;
 
     }catch(error){
         console.log(error);
@@ -14,20 +19,20 @@ const displayData = (data)=> {
     const displayContent = document.getElementById('display-content');
     displayContent.innerHTML = '';
 
+    const openData = data;
+    console.log(openData)
+    const filter = openData.filter(item => {
+        return item.status !== 'open'
+;
+    } )
+    console.log(filter)
 
     data.forEach(element => {
         // const status = element.status;
         const priority = element.priority;
         
-        console.log(priority);
-        // if(status === 'open'){
-
-        // }
-        
-        console.log(element)
-        console.log(element.id)
         const div = document.createElement('div');
-        div.className = `bg-white px-3 py-6 rounded-lg shadow-xl ${priority === 'low' ? 'border-t-5 border-t-violet-700/60' : 'border-t-5 border-t-green-600/70'} `;
+        div.className = `bg-white px-2 py-6 rounded-lg shadow-xl ${priority === 'low' ? 'border-t-5 border-t-violet-700/60' : 'border-t-5 border-t-green-600/70'} `;
         div.innerHTML = `
              <div class="logo">
                 <div class="flex justify-between items-center">
@@ -41,14 +46,14 @@ const displayData = (data)=> {
                         <div 
                             class="${element.labels[0] === 'bug' ? 'bg-red-100 text-red-500 border border-red-300' : element.labels[0] === 'enhancement' ? 'bg-green-100 text-green-600 border border-green-300' : element.labels[0] === 'help wanted' ? 'text-amber-600 border bg-amber-100 border-amber-300 ' : element.labels[0] === 'good first issue' ? 'text-blue-600 border bg-blue-100 border-blue-300 ' : 'text-pink-600 border bg-pink-100 border-pink-300 '} px-2 py-1.5 rounded-3xl flex items-center"
                         >
-                            ${element.labels[0] === 'bug' ? '<i class="ph ph-bug-droid text-lg"></i>' : element.labels[0] === 'enhancement' ? '<i class="ph ph-sparkle"></i>' : '<i class="fa-regular fa-life-ring"></i>'} 
+                            ${element.labels[0] === 'bug' ? '<i class="ph ph-bug-droid text-lg"></i>' : element.labels[0] === 'enhancement' ? '<i class="ph ph-sparkle"></i>': element.labels[0] === 'documentation' ? '<i class="ph ph-file-code"></i>' : element.labels[0] === 'help wanted' ? '<i class="fa-regular fa-life-ring"></i>' : '<i class="ph ph-warning-octagon"></i>'} 
                             ${element.labels[0]}
                         </div>
 
                         <div 
-                            class="${element.labels[1] === 'bug' ? 'bg-red-100 text-red-500 border border-red-300' : element.labels[1] === 'enhancement' ? 'bg-green-100 text-green-600 border border-green-300' : element.labels[1] === 'help wanted' ? 'text-amber-600 border bg-amber-100 border-amber-300 ' : element.labels[1] === 'good first issue' ? 'text-blue-600 border bg-blue-100 border-blue-300 ': ''} px-1 py-1.5 rounded-3xl"
+                            class="${element.labels[1] === 'bug' ? 'bg-red-100 text-red-500 border border-red-300' : element.labels[1] === 'enhancement' ? 'bg-green-100 text-green-600 border border-green-300' : element.labels[1] === 'help wanted' ? 'text-amber-600 border bg-amber-100 border-amber-300 ' : element.labels[1] === 'good first issue' ? 'text-blue-600 border bg-blue-100 border-blue-300 ': ''} px-1 py-1.5 rounded-3xl flex items-center"
                         >
-                            ${element.labels[1] ? '<i class="fa-regular fa-life-ring"></i>' : '' }${element.labels[1] ? element.labels[1] : '' }</div>
+                            ${element.labels[1] === 'bug' ? '<i class="ph ph-bug-droid text-lg"></i>' : element.labels[1] === 'enhancement' ? '<i class="ph ph-sparkle"></i>': element.labels[1] === 'documentation' ? '<i class="ph ph-file-code"></i>' : element.labels[1] === 'help wanted' ? '<i class="fa-regular fa-life-ring"></i>' : element.labels[1] === 'good first issue' ? '<i class="ph ph-warning-octagon"></i>' : ''}${element.labels[1] ? element.labels[1] : '' }</div>
                     </div>
                 <div>
 
@@ -63,6 +68,20 @@ const displayData = (data)=> {
         displayContent.appendChild(div);
     });
 
+    // openbtn 
+    
+
 }
 
 fetchData()
+
+// btn clicked
+
+// open data fetch
+
+// openDataFecth()
+
+// const openData = (data)=> {
+//     console.log('open..')
+//     console.log(data)
+// }

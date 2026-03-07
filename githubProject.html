@@ -31,7 +31,7 @@
     <section class="mt-10 px-5 sm:px-10">
         <div class="bg-white py-5 px-5 rounded-md">
             <button class="btn btn-gost px-7 sm:px-10 mr-2 bg-blue-600 text-white">All</button>
-            <button class="btn btn-gost px-5 sm:px-8 mr-2">Open</button>
+            <button onclick="openData()" class="btn btn-gost px-5 sm:px-8 mr-2">Open</button>
             <button class="btn btn-gost px-5 sm:px-8">Closed</button>
         </div>
 
@@ -39,7 +39,7 @@
             <aside class="flex items-center gap-2 mb-3">
                 <div class="logo bg-gray-200 p-2 rounded-full"><img src="./assets/Aperture.png" alt=""></div>
                 <div class="card-count">
-                    <h3 class="text-xl font-semibold text-gray-900">50 Issues</h3>
+                    <h3 id="issu-length" class="text-xl font-semibold text-gray-900">0 Issues</h3>
                     <p class="text-neutral-500">Track and manage your project issues</p>
                 </div>
             </aside>
