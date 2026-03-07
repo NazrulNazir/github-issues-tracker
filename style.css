@@ -3,3 +3,8 @@
 *{
     font-family: "Geist", sans-serif;
 }
+
+.btn-background {
+    background-color: #155dfc;
+    color: #fff;
+}
