@@ -6,8 +6,60 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body>
-    <h1 class="text-center text-5xl font-bold">GitHub Issues Traker</h1>
+<body class="bg-gray-100 pb-10">
+    <nav class="sticky top-0">
+        <div class="navbar bg-base-100 shadow-sm px-10">
+            <div class="flex-1">
+                <div class="btn btn-ghost text-2xl cursor-pointer">
+                    <img class="w-[30px]" src="./assets/github-logo.png" alt="">
+                    <button class="">GitHub Issues Tracker</button>
+                </div>
+            </div>
+            <div class="flex gap-4 relative">
+                <i class="fa-brands fa-sistrix absolute top-3 left-2 z-10 text-neutral-400"></i>
+                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto pl-8" />
+                <div class="dropdown dropdown-end">
+                    <button class="btn btn-ghoes bg-blue-600 text-white"><i class="fa-solid fa-plus"></i> New Issue</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="mt-10 px-5 sm:px-10">
+        <div class="bg-white py-5 px-5 rounded-md">
+            <button class="btn btn-gost px-7 sm:px-10 mr-2 bg-blue-600 text-white">All</button>
+            <button class="btn btn-gost px-5 sm:px-8 mr-2">Open</button>
+            <button class="btn btn-gost px-5 sm:px-8">Closed</button>
+        </div>
+
+        <div class="bg-white py-5 px-5 rounded-md mt-10 flex justify-between items-center shadow-lg">
+            <aside class="flex items-center gap-2">
+                <div class="logo bg-gray-200 p-2 rounded-full"><img src="./assets/Aperture.png" alt=""></div>
+                <div class="card-count">
+                    <h3 class="text-xl font-semibold text-gray-900">50 Issues</h3>
+                    <p class="text-neutral-500">Track and manage your project issues</p>
+                </div>
+            </aside>
+            <aside class="flex gap-5">
+                <div class="flex gap-2 items-center">
+                    <div class="w-3 h-3 bg-green-600/70 rounded-full"></div>
+                    <p>Open</p>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <div class="w-3 h-3 bg-violet-700/60 rounded-full"></div>
+                    <p>Closed</p>
+                </div>
+            </aside>
+        </div>
+
+        <div id="display-content" class="mt-2 py-5 rounded-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+
+        </div>
+    </section>
+
+    <script src="gitProject.js"></script>
 </body>
 </html>

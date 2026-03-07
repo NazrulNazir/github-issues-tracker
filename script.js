@@ -1,3 +1,5 @@
+
+// login form
 document.getElementById('form-submit')
 .addEventListener('click', function(e){
     e.preventDefault();
@@ -12,3 +14,5 @@ document.getElementById('form-submit')
     }
 
 })
+
+
