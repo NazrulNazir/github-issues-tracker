@@ -108,6 +108,7 @@ const displayData = (data)=> {
 
     const allBtn = document.getElementById('all-btn');
     allBtn.addEventListener('click', ()=> {
+        displayData(data)
         const allCardLength = data.length;
         issuLength.innerHTML = `${allCardLength} Issues`;
 
@@ -303,17 +304,21 @@ fetchData()
 //===========================================
 //             search random data
 //===========================================
+let getSearchValue = document.getElementById('search-input-data');
 
 document.getElementById('search-btn')
 .addEventListener('click', ()=> {    
-    const getSearchValue = document.getElementById('search-input-data').value;
-    searchData(getSearchValue)
+    const value = getSearchValue.value;
+    searchData(value)
+
+    getSearchValue.value = '';
 })
 
 const searchData = async(searchText)=> {
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
     const data = await res.json();
     displayShowSearchData(data.data);
+    issuLength.innerHTML = `${data.data.length} Issues`;
 }
 
 
