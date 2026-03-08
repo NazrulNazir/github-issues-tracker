@@ -20,10 +20,15 @@ const modalData = async(id)=> {
     }
 // modal data display show
 const displayModaldata = (data)=> {
+    const date = data.createdAt.split('T')[0];
+    const assignee = data.assignee.split('_');
+    const assigneeName = assignee[0] + ' ' + assignee[1];
+
+    console.log(data)
+
     const status = data.status;
     const priority = data.priority;
     const displayModal = document.getElementById('displayModal');
-    console.log(data)
     displayModal.innerHTML = '';
     modalClick.showModal()
     const div = document.createElement('div');
@@ -32,17 +37,18 @@ const displayModaldata = (data)=> {
         div.innerHTML = `
 
         <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            <button class="btn btn-xl btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-            <div class="logo mt-5">
-            <div class="flex justify-between items-center">
-                <img class="w-10 h-10" src="${priority === 'low' ? './assets/Closed- Status .png' : './assets/Open-Status.png'}" alt="#">
-                <button class="px-10 py-1 text-lg ${priority === 'low' ? 'bg-gray-200 text-gray-500 rounded-3xl' : priority === 'high' ? 'bg-red-100 text-red-500 rounded-3xl' : 'bg-yellow-100 text-amber-600 rounded-3xl'}">${data.priority}</button>
-
+        <h3 class="text-xl font-semibold mt-7">${data.title}</h3>
+            <div class="logo mt-4">
+            <div class="flex gap-4 items-center">
+                <button class="${data.status === 'open' ? 'bg-emerald-800' : 'bg-violet-600'} rounded-full px-3 py-1 text-white">${data.status}</button>  
+                <ul class="flex gap-3 text-neutral-600">
+                    <li>${data.status} by ${assigneeName  === 'undefined' ? data.priority : 'Name Not Found'} </li>
+                    <li>${date}</li>                    
+                </ul>
             </div>
-                <h3 class="text-lg font-semibold mt-5">${data.title}</h3>
-                <p class="text-neutral-500 my-2">${data.description}</p>
-                <div class="flex gap-5 mt-5">
+                <div class="flex gap-5 my-7">
                     <div 
                         class="${data.labels[0] === 'bug' ? 'bg-red-100 text-red-500 border border-red-300' : data.labels[0] === 'enhancement' ? 'bg-green-100 text-green-600 border border-green-300' : data.labels[0] === 'help wanted' ? 'text-amber-600 border bg-amber-100 border-amber-300 ' : data.labels[0] === 'good first issue' ? 'text-blue-600 border bg-blue-100 border-blue-300 ' : 'text-pink-600 border bg-pink-100 border-pink-300 '} px-2 py-1.5 rounded-3xl flex items-center"
                     >
@@ -55,14 +61,20 @@ const displayModaldata = (data)=> {
                     >
                         ${data.labels[1] === 'bug' ? '<i class="ph ph-bug-droid text-lg"></i>' : data.labels[1] === 'enhancement' ? '<i class="ph ph-sparkle"></i>': data.labels[1] === 'documentation' ? '<i class="ph ph-file-code"></i>' : data.labels[1] === 'help wanted' ? '<i class="fa-regular fa-life-ring"></i>' : data.labels[1] === 'good first issue' ? '<i class="ph ph-warning-octagon"></i>' : ''}${data.labels[1] ? data.labels[1] : '' }</div>
                 </div>
+                <p class="text-neutral-500 my-2">${data.description}</p>
             <div>
 
             </div>
         </div>
-        <hr class="my-10 border-gray-300">
-        <div>
-            <p class="text-neutral-500 mb-1">#1by john_doe</p>
-            <p class="text-neutral-500">1/15/2024</p>
+        <div class="flex justify-around mt-5">
+            <div>
+                <p class="text-neutral-500">Assignee:</p>
+                <p class="text-neutral-500 mb-1">${assigneeName === 'undefined' ? data.priority : 'Name Not Found'}</p>
+            </div>
+            <div>
+                <p class="mb-1 text-neutral-500">Priority:</p>
+                <button class="px-10 py-1 text-lg ${priority === 'low' ? 'text-gray-100 bg-gray-700 rounded-3xl' : priority === 'high' ? 'text-red-100 bg-red-500 rounded-3xl' : 'text-yellow-100 bg-amber-600 rounded-3xl'}">${data.priority}</button>
+            </div>
         </div>
     `
     displayModal.appendChild(div);
@@ -119,6 +131,10 @@ const displayData = (data)=> {
         allBtn.classList.add('btn-background');
     })
     data.forEach(element => {
+        const date = element.createdAt.split('T');
+        const author = element.author.split('_');
+        const authorName = author[0] + ' ' + author[1];
+
         const status = element.status;
         const priority = element.priority;        
         const div = document.createElement('div');
@@ -156,8 +172,8 @@ const displayData = (data)=> {
             </div>
             <hr class="my-10 border-gray-300">
             <div>
-                <p class="text-neutral-500 mb-1">#1by john_doe</p>
-                <p class="text-neutral-500">1/15/2024</p>
+                <p class="text-neutral-500 mb-1">${authorName}</p>
+                <p class="text-neutral-500">${date[0]}</p>
             </div>
         `
         displayContent.appendChild(div);
@@ -166,6 +182,7 @@ const displayData = (data)=> {
     // openbtn data display
     const openBtn = document.getElementById('open-btn');
     openBtn.addEventListener('click', ()=> {
+        displayData(data)
         displayContent.innerHTML = '';
         const findOpenData = openData.filter(item => {
 
@@ -182,6 +199,10 @@ const displayData = (data)=> {
     issuLength.innerHTML = `${findOpenData.length} Issues`;
 
     findOpenData.forEach(element => {
+        const date = element.createdAt.split('T');
+        const author = element.author.split('_');
+        const authorName = author[0] + ' ' + author[1];
+
         const status = element.status;
         const priority = element.priority;
         const div = document.createElement('div');
@@ -219,8 +240,8 @@ const displayData = (data)=> {
             </div>
             <hr class="my-10 border-gray-300">
             <div>
-                <p class="text-neutral-500 mb-1">#1by john_doe</p>
-                <p class="text-neutral-500">1/15/2024</p>
+                <p class="text-neutral-500 mb-1">${authorName}</p>
+                <p class="text-neutral-500">${date[0]}</p>
             </div>
         `
         displayContent.appendChild(div);
@@ -247,6 +268,10 @@ const displayData = (data)=> {
     issuLength.innerHTML = `${closeData.length} Issues`;
 
     closeData.forEach(element => {
+        const date = element.createdAt.split('T');
+        const author = element.author.split('_');
+        const authorName = author[0] + ' ' + author[1];
+
         const status = element.status;
         const priority = element.priority;
         
@@ -286,8 +311,8 @@ const displayData = (data)=> {
             </div>
             <hr class="my-10 border-gray-300">
             <div>
-                <p class="text-neutral-500 mb-1">#1by john_doe</p>
-                <p class="text-neutral-500">1/15/2024</p>
+                <p class="text-neutral-500 mb-1">${authorName}</p>
+                <p class="text-neutral-500">${date[0]}</p>
             </div>
         `
         displayContent.appendChild(div);
@@ -326,6 +351,10 @@ const searchData = async(searchText)=> {
 const displayShowSearchData = (data)=> {
     displayContent.innerHTML = '';
     data.forEach(element => {
+        const date = element.createdAt.split('T');
+        const author = element.author.split('_');
+        const authorName = author[0] + ' ' + author[1];
+
         const status = element.status;
         const priority = element.priority;        
         const div = document.createElement('div');
@@ -363,8 +392,8 @@ const displayShowSearchData = (data)=> {
             </div>
             <hr class="my-10 border-gray-300">
             <div>
-                <p class="text-neutral-500 mb-1">#1by john_doe</p>
-                <p class="text-neutral-500">1/15/2024</p>
+                <p class="text-neutral-500 mb-1">${authorName}</p>
+                <p class="text-neutral-500">${date[0]}</p>
             </div>
         `
         displayContent.appendChild(div);
