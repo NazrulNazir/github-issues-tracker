@@ -29,7 +29,7 @@
         </div>
     </nav>
     <section class="mt-10 px-5 sm:px-10">
-        <div class="bg-white py-5 px-5 rounded-md">
+        <div id="btn-area" class="bg-white py-5 px-5 rounded-md">
             <button id="all-btn" class="btn btn-gost px-7 sm:px-10 mr-2 btn-background">All</button>
             <button id="open-btn" class="btn btn-gost px-5 sm:px-8 mr-2">Open</button>
             <button id="close-btn" class="btn btn-gost px-5 sm:px-8">Closed</button>
@@ -54,6 +54,31 @@
                 </div>
             </aside>
         </div>
+
+        <!-- loading -->
+        <div id="loading" class="text-center mt-5 hidden">
+            <span class="loading loading-dots loading-xl"></span>
+        </div>
+
+        <div>
+            <dialog id="my_modal_3" class="modal">
+                <div id="displayModal">
+
+                </div>
+            </dialog>
+
+        </div>
+           <!-- You can open the modal using ID.showModal() method -->
+            <!-- <button class="btn" onclick="my_modal_3.showModal()">open modal</button>
+            <dialog id="my_modal_3" class="modal">
+            <div class="modal-box">
+                <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <h3 class="text-lg font-bold">Hello!</h3>
+                <p class="py-4">Press ESC key or click on ✕ button to close</p>
+            </div>
+            </dialog> -->
 
         <div id="display-content" class="mt-2 py-5 rounded-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
 
