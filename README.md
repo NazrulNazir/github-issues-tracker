@@ -14,8 +14,7 @@ Arrow functions are a concise, ES6-introduced syntax for writing JavaScript func
 Template literals are a way to create strings in JavaScript using backticks, allowing embedded expressions with ${} and supporting multi-line strings.
 
 
-Live Link: https://nazrulnazir.github.io/github-issues-tracker/
 
-Repo Link: https://github.com/NazrulNazir/github-issues-tracker
-
-Linkdin: 
+## form login
+username : admin
+password : admin123
