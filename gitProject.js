@@ -3,6 +3,7 @@ const issuLength = document.getElementById("issu-length");
 const loading = document.getElementById('loading');
 const modalClick = document.getElementById('my_modal_3');
 const displayContent = document.getElementById('display-content');
+const noDataFound = document.getElementById('no-data-found');
 
 const btnArea = document.getElementById('btn-area');
 
@@ -23,8 +24,7 @@ const displayModaldata = (data)=> {
     const date = data.createdAt.split('T')[0];
     const assignee = data.assignee.split('_');
     const assigneeName = assignee[0] + ' ' + assignee[1];
-
-    console.log(data)
+    const name = data.assignee === '' ? 'Name Not Found' : assigneeName;
 
     const status = data.status;
     const priority = data.priority;
@@ -32,10 +32,9 @@ const displayModaldata = (data)=> {
     displayModal.innerHTML = '';
     modalClick.showModal()
     const div = document.createElement('div');
+    
     div.className = 'bg-white modal-box sm:px-8 px-3';
-    console.log(div)
         div.innerHTML = `
-
         <form method="dialog">
             <button class="btn btn-xl btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
@@ -44,7 +43,7 @@ const displayModaldata = (data)=> {
             <div class="flex gap-4 items-center">
                 <button class="${data.status === 'open' ? 'bg-emerald-800' : 'bg-violet-600'} rounded-full px-3 py-1 text-white">${data.status}</button>  
                 <ul class="flex gap-3 text-neutral-600">
-                    <li>${data.status} by ${assigneeName  === 'undefined' ? data.priority : 'Name Not Found'} </li>
+                   <li>${data.status} by ${name}</li>
                     <li>${date}</li>                    
                 </ul>
             </div>
@@ -69,7 +68,7 @@ const displayModaldata = (data)=> {
         <div class="flex justify-around mt-5">
             <div>
                 <p class="text-neutral-500">Assignee:</p>
-                <p class="text-neutral-500 mb-1">${assigneeName === 'undefined' ? data.priority : 'Name Not Found'}</p>
+                <p class="text-neutral-500 mb-1">${name}</p>
             </div>
             <div>
                 <p class="mb-1 text-neutral-500">Priority:</p>
@@ -85,12 +84,6 @@ const displayModaldata = (data)=> {
 
 const btnLoop = btnArea.children;
 const allBtn = document.getElementById('all-btn');
-// allBtn.addEventListener('click', ()=> {
-
-//     for(let btn of btnLoop){
-//         console.log(btn)
-//     }
-// })
 
 
 
@@ -129,6 +122,7 @@ const displayData = (data)=> {
         openBtn.style.backgroundColor = '';
         openBtn.style.color = '';
         allBtn.classList.add('btn-background');
+        noDataFound.classList.add('hidden');
     })
     data.forEach(element => {
         const date = element.createdAt.split('T');
@@ -191,6 +185,7 @@ const displayData = (data)=> {
         closeBtn.style.backgroundColor = '';
         closeBtn.style.color = '';
         allBtn.classList.remove('btn-background');
+        noDataFound.classList.add('hidden');
 
         return item.status !== 'closed';
 ;
@@ -261,6 +256,7 @@ const displayData = (data)=> {
         openBtn.style.backgroundColor = '';
         openBtn.style.color = '';
         allBtn.classList.remove('btn-background');
+        noDataFound.classList.add('hidden');
 
         return item.status !== 'open';
 ;
@@ -330,11 +326,14 @@ fetchData()
 //             search random data
 //===========================================
 let getSearchValue = document.getElementById('search-input-data');
+ 
+    
 
 document.getElementById('search-btn')
 .addEventListener('click', ()=> {    
     const value = getSearchValue.value;
     searchData(value)
+    // noDataFound.classList.remove('hidden');
 
     getSearchValue.value = '';
 })
@@ -350,6 +349,24 @@ const searchData = async(searchText)=> {
 // search data display show
 const displayShowSearchData = (data)=> {
     displayContent.innerHTML = '';
+
+    // display show no data found
+    if(data.length === 0){
+        noDataFound.classList.remove('hidden');
+        noDataFound.innerHTML = '';
+        const div = document.createElement('div');
+        div.className = 'flex justify-center items-center shadow-xl'
+        div.innerHTML = `
+            <div class=" bg-white rounded-lg w-full text-center">
+                <h1 class="my-24 text-4xl font-bold text-neutral-400">No Data Found..</h1>
+            </div>
+        `
+        noDataFound.appendChild(div);
+        return;
+    }else{
+        noDataFound.classList.add('hidden');
+    }
+
     data.forEach(element => {
         const date = element.createdAt.split('T');
         const author = element.author.split('_');
